@@ -2,6 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { GoDotFill } from 'react-icons/go';
+import { FiLogIn } from 'react-icons/fi';
+import { RiLoginBoxLine } from 'react-icons/ri';
 import { SunDimIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { headerMenuLinks } from '@/constants/links';
@@ -50,12 +52,13 @@ const Header = () => {
             className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
             variant={'secondary'}
           >
-            Login
+            <FiLogIn /> Login
           </Button>
           <Button
             className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
             variant={'secondary'}
           >
+            <RiLoginBoxLine />
             Register
           </Button>
         </div>
