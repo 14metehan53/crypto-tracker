@@ -5,10 +5,12 @@ import { CgTrending } from 'react-icons/cg';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
+import AnnouncementCard from '@/components/Announcement';
 
 const HomeContent = () => {
   return (
     <>
+      <AnnouncementCard />
       <div className='container md:place-items-center grid lg:grid-cols-2 mt-20 md:grid-cols-1 w-full mx-auto gap-x-10'>
         <div className='bg-[#0d0e118c] p-4 h-96 rounded-xl lg:ml-10 w-full max-w-[550px] md:ml-0'>
           <div className='bg-[#121318] border-[#090909] border p-4 h-96 rounded-xl -mt-8 w-full'>

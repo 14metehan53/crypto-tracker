@@ -16,7 +16,7 @@ export const headerMenuLinks = [
     href: '/exchanges',
   },
   {
-    name: 'Ganiers & Losers',
+    name: 'Gainers & Losers',
     href: '/gainerslosers',
     icon: AiFillFire,
   },
