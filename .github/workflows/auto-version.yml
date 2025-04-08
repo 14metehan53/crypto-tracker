@@ -3,7 +3,7 @@ name: Auto Version Tag
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   tag:
