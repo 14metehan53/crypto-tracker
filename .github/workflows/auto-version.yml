@@ -16,26 +16,26 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
 
-      - name: Fetch latest tag
+      - name: Fetch latest tags
         id: get_tag
         run: |
           git fetch --tags
-          latestTag=$(git describe --tags --abbrev=0 || echo "v0.1.0")
-          echo "latest=$latestTag" >> $GITHUB_OUTPUT
+          latestTag=$(git tag -l | sort -V | tail -n 1 || echo "v0.1.0")
+          echo "latest=$latestTag" >> $GITHUB_ENV
 
       - name: Bump patch version
         id: bump
         run: |
-          latest=${{ steps.get_tag.outputs.latest }}
+          latest=${{ env.latest }}
           version=${latest#v}
           IFS='.' read -r major minor patch <<< "$version"
           patch=$((patch + 1))
           new="v$major.$minor.$patch"
-          echo "new_tag=$new" >> $GITHUB_OUTPUT
+          echo "new_tag=$new" >> $GITHUB_ENV
 
-      - name: Create and push tag
+      - name: Create and push new tag
         run: |
-          git tag ${{ steps.bump.outputs.new_tag }}
-          git push origin ${{ steps.bump.outputs.new_tag }}
+          git tag ${{ env.new_tag }}
+          git push origin ${{ env.new_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
