@@ -20,7 +20,7 @@ jobs:
         id: get_tag
         run: |
           git fetch --tags
-          latestTag=$(git describe --tags --abbrev=0 || echo "v0.1.0")
+          latestTag=$(git rev-list --tags --max-count=1)
           echo "latest=$latestTag" >> $GITHUB_OUTPUT
 
       - name: Bump patch version
