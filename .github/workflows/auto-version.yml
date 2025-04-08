@@ -36,6 +36,6 @@ jobs:
       - name: Create and push tag
         run: |
           git tag ${{ steps.bump.outputs.new_tag }}
-          git push https://github.com/${{ github.repository }} ${{ steps.bump.outputs.new_tag }} --quiet
+          git push origin ${{ steps.bump.outputs.new_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
