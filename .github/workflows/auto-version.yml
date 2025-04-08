@@ -1,0 +1,40 @@
+name: Auto Version Tag
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          latestTag=$(git describe --tags --abbrev=0 || echo "v0.0.0")
+          echo "latest=$latestTag" >> $GITHUB_OUTPUT
+
+      - name: Bump patch version
+        id: bump
+        run: |
+          latest=${{ steps.get_tag.outputs.latest }}
+          version=${latest#v}
+          IFS='.' read -r major minor patch <<< "$version"
+          patch=$((patch + 1))
+          new="v$major.$minor.$patch"
+          echo "new_tag=$new" >> $GITHUB_OUTPUT
+
+      - name: Create new tag
+        run: |
+          git tag ${{ steps.bump.outputs.new_tag }}
+          git push origin ${{ steps.bump.outputs.new_tag }}

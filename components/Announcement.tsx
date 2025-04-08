@@ -1,78 +1,64 @@
-import React from 'react';
+'use client';
+import React, { useEffect, useState } from 'react';
 import { RiMegaphoneFill } from 'react-icons/ri';
-import { Badge } from '@/components/ui/badge';
-import { CgTrending, CgTrendingDown } from 'react-icons/cg';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CgTrending } from 'react-icons/cg';
+
+const announcements = [
+  {
+    text: 'Bitcoin surged 2.3% after a major institutional investment.',
+    icon: <CgTrending />,
+  },
+  {
+    text: 'BNB rallied after Binance announced a new Launchpad project.',
+  },
+  {
+    text: 'Solana surpassed Ethereum in NFT trading volume.',
+  },
+  {
+    text: 'Ripple scored another legal win in its case against the SEC.',
+  },
+  {
+    text: 'Cardano gains attention with its new education project in Africa.',
+  },
+  {
+    text: 'Dogecoin spiked 8% after a tweet from Elon Musk.',
+    icon: <CgTrending />,
+  },
+];
 
 const AnnouncementCard = () => {
+  const [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % announcements.length);
+    }, 8000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className='bg-[#121318] p-3 relative overflow-hidden'>
-      <div className='container mx-auto w-full flex text-xs'>
+      <div className='w-full flex text-xs'>
         <span className='flex items-center gap-x-2'>
           Announcement
           <RiMegaphoneFill className='text-[#F0B90B]' size={14} />
         </span>
-        <div className='px-3 flex'>
-          <div className='flex items-center gap-x-4'>
-            <Badge className='bg-[#181920]'>
-              BTC +2.88%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              BNB +4.08%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              DOGE +5.88%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              SHIB +4.18%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              XRP -8.25%
-              <div>
-                <CgTrendingDown />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              TOKEN +10.81%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              FLOKI +18.88%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              APT +2.81%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              XAI +3.11%
-              <div>
-                <CgTrendingDown />
-              </div>
-            </Badge>
-            <Badge className='bg-[#181920]'>
-              BONE +1.33%
-              <div>
-                <CgTrending />
-              </div>
-            </Badge>
+        <div className='px-3'>
+          <div className='flex items-center gap-x-4 h-5'>
+            <AnimatePresence>
+              <motion.div
+                key={index}
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: -20, opacity: 0.5 }}
+                className='absolute flex gap-x-2 items-center'
+              >
+                {announcements[index].text}
+                {announcements[index].icon}
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </div>
