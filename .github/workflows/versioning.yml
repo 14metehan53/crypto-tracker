@@ -1,4 +1,4 @@
-name: Otomatik Versiyon Artırma ve Tag Oluşturma
+name: Auto Version Tag
 
 on:
   push:
@@ -6,16 +6,36 @@ on:
       - main
 
 jobs:
-  versioning:
+  tag:
     runs-on: ubuntu-latest
     steps:
-      - name: Kodları Çek
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Versiyonu Artır ve Tag Oluştur
-        uses: anothrNick/github-tag-action@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          release_branches: main
+      - name: Set up Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+      - name: Fetch latest tags
+        id: get_tag
+        run: |
+          git fetch --tags
+          latestTag=$(git tag -l | sort -V | tail -n 1 || echo "v0.1.0")
+          echo "latest=$latestTag" >> $GITHUB_ENV
+
+      - name: Bump patch version
+        id: bump
+        run: |
+          latest=${{ env.latest }}
+          version=${latest#v}
+          IFS='.' read -r major minor patch <<< "$version"
+          patch=$((patch + 1))
+          new="v$major.$minor.$patch"
+          echo "new_tag=$new" >> $GITHUB_ENV
+
+      - name: Create and push new tag
+        run: |
+          git tag ${{ env.new_tag }}
+          git push origin ${{ env.new_tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
