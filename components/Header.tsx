@@ -14,7 +14,7 @@ const Header = () => {
       <div className='container mx-auto w-full p-4 bg-transparent backdrop-blur-lg flex items-center justify-between z-50'>
         {/* left */}
         <Link
-          href={''}
+          href={'/'}
           className='text-2xl text-[#e69e00] hover:text-[#d0b90b] cursor-pointer font-semibold tracking-wide'
         >
           Crypto Tracker
