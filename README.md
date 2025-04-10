@@ -1,5 +1,6 @@
 Home page
-![image](https://github.com/user-attachments/assets/3674e82b-00d6-479e-b407-4b55c0275844)
+![image](https://github.com/user-attachments/assets/503eeef6-a0d9-4e87-be91-2db389e613a8)
+
 
 
 
