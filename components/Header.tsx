@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -7,8 +8,11 @@ import { RiLoginBoxLine } from 'react-icons/ri';
 import { SunDimIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { headerMenuLinks } from '@/constants/links';
+import { usePathname } from 'next/navigation';
 
 const Header = () => {
+  const pathname = usePathname();
+
   return (
     <header className='relative'>
       <div className='container mx-auto w-full p-4 bg-transparent backdrop-blur-lg flex items-center justify-between z-50'>
@@ -25,7 +29,12 @@ const Header = () => {
           {headerMenuLinks?.map((menu, index) => {
             return (
               <div key={index} className='flex items-center gap-1'>
-                <Link href={menu.href} className='hover:text-[#E69E00]'>
+                <Link
+                  href={menu.href}
+                  className={`hover:text-[#E69E00] ${
+                    pathname === menu.href ? 'text-yellow-500' : ''
+                  }`}
+                >
                   {menu.name}
                 </Link>
                 {menu.icon && <menu.icon className='text-[#f6465d]' />}
