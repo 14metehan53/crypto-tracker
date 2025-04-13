@@ -1,6 +1,11 @@
 Home page
 ![image](https://github.com/user-attachments/assets/503eeef6-a0d9-4e87-be91-2db389e613a8)
 
+Markets page
+![image](https://github.com/user-attachments/assets/108ab443-b5f3-4782-a40a-cd6bec1d8660)
+
+Boycott page
+![image](https://github.com/user-attachments/assets/b1ffda14-6110-4d74-841f-025249f4546e)
 
 
 
