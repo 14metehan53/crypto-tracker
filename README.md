@@ -7,6 +7,10 @@ Markets page
 Boycott page
 ![image](https://github.com/user-attachments/assets/b1ffda14-6110-4d74-841f-025249f4546e)
 
+Gainers & Losers page
+![image](https://github.com/user-attachments/assets/628709c3-5323-46b8-91db-d45f55a8a6eb)
+
+
 
 
 
