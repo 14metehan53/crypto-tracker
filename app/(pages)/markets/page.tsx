@@ -35,7 +35,7 @@ const coins = [
     change: 4.73,
   },
   {
-    name: 'XRP',
+    name: 'Ripple',
     symbol: 'XRP',
     price: 0.647,
     volume: '1.4B',

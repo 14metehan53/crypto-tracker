@@ -17,7 +17,7 @@ export const headerMenuLinks = [
   },
   {
     name: 'Gainers & Losers',
-    href: '/gainerslosers',
+    href: '/gainersandlosers',
     icon: AiFillFire,
   },
 ];
