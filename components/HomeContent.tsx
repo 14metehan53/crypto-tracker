@@ -16,7 +16,7 @@ const HomeContent = () => {
           <div className='bg-[#121318] border-[#090909] border p-4 h-96 rounded-xl -mt-8 w-full'>
             <div className='flex items-center text-xl justify-center'>
               <div className='bg-[#0f1013] flex items-center gap-1 p-2 px-3 rounded-full'>
-                Popular Coin's
+                Popular Coins
                 <AiFillTrophy size={20} className='text-[#F0B90B]' />
               </div>
             </div>
