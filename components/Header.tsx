@@ -8,9 +8,10 @@ import { RiLoginBoxLine } from 'react-icons/ri';
 import { SunDimIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { headerMenuLinks } from '@/constants/links';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 const Header = () => {
+  const router = useRouter();
   const pathname = usePathname();
 
   return (
@@ -60,12 +61,14 @@ const Header = () => {
           <Button
             className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
             variant={'secondary'}
+            onClick={() => router.push('/auth/sign-in')}
           >
             <FiLogIn /> Login
           </Button>
           <Button
             className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
             variant={'secondary'}
+            onClick={() => router.push('/auth/sign-up')}
           >
             <RiLoginBoxLine />
             Register

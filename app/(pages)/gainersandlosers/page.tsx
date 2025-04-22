@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { MdOutlineAccessTimeFilled } from 'react-icons/md';
+import Link from 'next/link';
 
 const GainersAndLosers = () => {
   const initialTime = {
@@ -65,6 +66,20 @@ const GainersAndLosers = () => {
           <TimeCard value={seconds} label='Seconds' />
         </div>
         <div className='text-xs'>only registered users can see</div>
+        <div className='flex gap-x-3'>
+          <Link
+            className='text-xs text-yellow-500 hover:underline underline-offset-2'
+            href={'/auth/sign-in'}
+          >
+            sign in
+          </Link>
+          <Link
+            className='text-xs text-yellow-500 hover:underline underline-offset-2'
+            href={'/auth/sign-up'}
+          >
+            sign up
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import './globals.css';
+import '@/app/globals.css';
 import { plexSans } from '@/fonts/font';
-import Header from '@/components/Header';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,10 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${plexSans.className} antialiased`}>
-        <Header />
-        {children}
-      </body>
+      <head>
+        <meta
+          name='viewport'
+          content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+        />
+      </head>
+      <body className={`${plexSans.className} antialiased`}>{children}</body>
     </html>
   );
 }
