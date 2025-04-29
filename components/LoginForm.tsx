@@ -1,9 +1,11 @@
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CgGoogle } from 'react-icons/cg';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { login } from '@/action/login';
 
 const LoginForm = () => {
   return (
@@ -11,8 +13,8 @@ const LoginForm = () => {
       <div className='w-full md:w-1/2 flex flex-col justify-center items-center px-8 py-12 text-center bg-[#0f1014]'>
         <div className='gap-x-1 flex items-center mb-4'>
           <div className='text-3xl font-bold text-white'>Sign in</div>
-          <Badge className='p-1 rounded-sm text-xs text-red-500 bg-[#fb2c3669]'>
-            inactive
+          <Badge className='p-1 rounded-sm text-xs text-green-500 bg-[#00c95069]'>
+            active
           </Badge>
         </div>
 
@@ -20,6 +22,7 @@ const LoginForm = () => {
           Sign in easily and securely with your Google account.
         </p>
         <Button
+          onClick={login}
           variant='outline'
           className='bg-white cursor-pointer text-black hover:bg-gray-100 flex items-center justify-center gap-2 w-full max-w-xs'
         >
@@ -28,12 +31,12 @@ const LoginForm = () => {
         </Button>
         <p className='mt-4 text-sm text-gray-500'>
           Don{"'"}t you have an account?{' '}
-          <Link href='/auth/sign-up' className='text-[#F0B90B] hover:underline'>
+          <Link href='/auth/signup' className='text-[#F0B90B] hover:underline'>
             Sign up
           </Link>
         </p>
         <p className='mt-2 text-sm text-gray-500 hover:underline underline-offset-2 cursor-pointer'>
-          <Link href={'/'}>go to home</Link>
+          <Link href={'/'}>home</Link>
         </p>
       </div>
       <div className='relative w-full h-[52vh] md:w-1/2 md:h-auto overflow-hidden'>

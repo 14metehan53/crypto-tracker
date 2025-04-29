@@ -69,13 +69,13 @@ const GainersAndLosers = () => {
         <div className='flex gap-x-3'>
           <Link
             className='text-xs text-yellow-500 hover:underline underline-offset-2'
-            href={'/auth/sign-in'}
+            href={'/auth/signin'}
           >
             sign in
           </Link>
           <Link
             className='text-xs text-yellow-500 hover:underline underline-offset-2'
-            href={'/auth/sign-up'}
+            href={'/auth/signup'}
           >
             sign up
           </Link>

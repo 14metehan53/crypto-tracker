@@ -9,8 +9,11 @@ import { SunDimIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { headerMenuLinks } from '@/constants/links';
 import { usePathname, useRouter } from 'next/navigation';
+import { useCurrentUser } from '@/hooks/currentUser';
+import UserMenu from '@/components/UserMenu';
 
 const Header = () => {
+  const user = useCurrentUser();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,21 +61,35 @@ const Header = () => {
             size={40}
             className='hover:bg-[#121318] text-[#eaecef] rounded-full cursor-pointer hover:text-white p-2'
           />
-          <Button
-            className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
-            variant={'secondary'}
-            onClick={() => router.push('/auth/sign-in')}
-          >
-            <FiLogIn /> Login
-          </Button>
-          <Button
-            className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
-            variant={'secondary'}
-            onClick={() => router.push('/auth/sign-up')}
-          >
-            <RiLoginBoxLine />
-            Register
-          </Button>
+          {user ? (
+            <>
+              <UserMenu
+                image={user.image}
+                name={user.name}
+                email={user.email}
+                emailVerified={user.emailVerified}
+                role={user.role}
+              />
+            </>
+          ) : (
+            <>
+              <Button
+                className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
+                variant={'secondary'}
+                onClick={() => router.push('/auth/signin')}
+              >
+                <FiLogIn /> Login
+              </Button>
+              <Button
+                className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
+                variant={'secondary'}
+                onClick={() => router.push('/auth/signup')}
+              >
+                <RiLoginBoxLine />
+                Register
+              </Button>
+            </>
+          )}
         </div>
       </div>
       <div className='absolute bottom-0 left-0 w-full border-b border-white/10'></div>
