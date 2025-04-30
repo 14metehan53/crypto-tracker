@@ -48,5 +48,11 @@
     "prisma": "^6.7.0",
     "tailwindcss": "^4",
     "typescript": "^5"
-  }
+  },
+
+  "pnpm": {
+    "onlyBuiltDependencies": [
+        "@prisma/client"
+    ]
+}
 }
