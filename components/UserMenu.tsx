@@ -28,13 +28,21 @@ import { UserRole } from '@prisma/client';
 import { ExtendedUser } from '@/types/session';
 import maskEmail from '@/action/maskEmail';
 
+interface UserMenuProps {
+  image: string;
+  name: string;
+  role: UserRole;
+  email: string;
+  emailVerified?: Date | null;
+}
+
 const UserMenu = ({
   image,
   name,
   email,
   emailVerified,
   role,
-}: ExtendedUser) => {
+}: UserMenuProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isVerified = !!emailVerified;
 
