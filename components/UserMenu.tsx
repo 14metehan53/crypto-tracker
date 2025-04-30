@@ -25,7 +25,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { UserRole } from '@prisma/client';
-import { ExtendedUser } from '@/types/session';
 import maskEmail from '@/action/maskEmail';
 
 interface UserMenuProps {
@@ -33,7 +32,7 @@ interface UserMenuProps {
   name: string;
   role: UserRole;
   email: string;
-  emailVerified?: Date | null;
+  emailVerified: Date | null | undefined;
 }
 
 const UserMenu = ({
@@ -57,7 +56,7 @@ const UserMenu = ({
           <div className='text-white text-sm'>
             <div className='flex items-center gap-x-1'>
               {name.length > 11 ? `${name.slice(0, 11)}...` : name}
-              {role === UserRole.ADMIN && (
+              {role && role === UserRole.ADMIN && (
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -86,7 +85,7 @@ const UserMenu = ({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  {role === UserRole.ADMIN && (
+                  {role && role === UserRole.ADMIN && (
                     <MdVerified className='text-yellow-500' />
                   )}
                 </TooltipTrigger>
