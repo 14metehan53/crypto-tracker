@@ -6,7 +6,7 @@ export type ExtendedUser = DefaultSession['user'] & {
   name: string;
   role: UserRole;
   email: string;
-  emailVerified?: Date | null;
+  emailVerified?: Date | null | undefined;
 };
 
 declare module 'next-auth' {

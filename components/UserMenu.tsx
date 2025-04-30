@@ -25,15 +25,8 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import { UserRole } from '@prisma/client';
+import { ExtendedUser } from '@/types/session';
 import maskEmail from '@/action/maskEmail';
-
-interface UserMenuProps {
-  image: string;
-  name: string;
-  role: UserRole;
-  email: string;
-  emailVerified: Date | null | undefined;
-}
 
 const UserMenu = ({
   image,
@@ -41,7 +34,7 @@ const UserMenu = ({
   email,
   emailVerified,
   role,
-}: UserMenuProps) => {
+}: ExtendedUser) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isVerified = !!emailVerified;
 
