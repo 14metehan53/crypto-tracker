@@ -1,6 +1,12 @@
 Home page
 ![image](https://github.com/user-attachments/assets/503eeef6-a0d9-4e87-be91-2db389e613a8)
 
+Home page after sign in
+![image](https://github.com/user-attachments/assets/c6b87984-240a-431a-bed1-e83b9fba9358)
+
+User menu
+![image](https://github.com/user-attachments/assets/9db096e5-9808-425a-a516-a158bb9b02c1)
+
 Markets page
 ![image](https://github.com/user-attachments/assets/108ab443-b5f3-4782-a40a-cd6bec1d8660)
 
