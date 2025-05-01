@@ -24,9 +24,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import { headerMenuLinks } from '@/constants/links';
 import { UserRole } from '@prisma/client';
 import { ExtendedUser } from '@/types/session';
 import maskEmail from '@/action/maskEmail';
+import { Badge } from '@/components/ui/badge';
+import { GoDotFill } from 'react-icons/go';
+import { SunDimIcon } from 'lucide-react';
+import Link from 'next/link';
 
 const UserMenu = ({
   image,
@@ -119,12 +124,38 @@ const UserMenu = ({
           <RiVipDiamondFill className='text-white' /> Subscription
           <span className='text-xs bg-[#F0B90B] px-1 rounded-full'>soon</span>
         </DropdownMenuItem>
+        {headerMenuLinks?.map((menu, index) => {
+          return (
+            <DropdownMenuItem
+              key={index}
+              className='cursor-pointer lg:hidden block'
+            >
+              <Link href={menu.href} className='flex items-center gap-x-1'>
+                {menu.menuIcon && <menu.menuIcon className='text-white' />}
+                {menu.name}
+                {menu.icon && <menu.icon className='text-[#f6465d]' />}
+              </Link>
+            </DropdownMenuItem>
+          );
+        })}
+        <DropdownMenuItem className='md:hidden flex items-center cursor-pointer'>
+          <SunDimIcon className='text-white md:hidden block' />
+          Light theme
+        </DropdownMenuItem>
         <DropdownMenuItem className='cursor-pointer'>
           <RiSettings3Fill className='text-white' /> Settings
         </DropdownMenuItem>
         <DropdownMenuItem className='cursor-pointer' onClick={logout}>
           <RiLogoutBoxRFill className='text-white' /> Logout
         </DropdownMenuItem>
+        <div className='md:hidden flex items-center justify-center mt-2 mb-2'>
+          <Badge
+            variant={'outline'}
+            className='text-green-500 border-green-500 rounded-full'
+          >
+            Delay 10 sec <GoDotFill className='text-green-500' />
+          </Badge>
+        </div>
       </DropdownMenuContent>
     </DropdownMenu>
   );

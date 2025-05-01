@@ -23,13 +23,13 @@ const Header = () => {
         {/* left */}
         <Link
           href={'/'}
-          className='text-2xl text-[#e69e00] hover:text-[#d0b90b] cursor-pointer font-semibold tracking-wide'
+          className='text-base sm:text-2xl text-[#e69e00] hover:text-[#d0b90b] cursor-pointer font-semibold tracking-wide'
         >
           Crypto Tracker
         </Link>
 
         {/* center */}
-        <nav className='flex gap-8 text-md'>
+        <nav className='gap-8 text-md hidden lg:flex'>
           {headerMenuLinks?.map((menu, index) => {
             return (
               <div key={index} className='flex items-center gap-1'>
@@ -49,7 +49,7 @@ const Header = () => {
 
         {/* right */}
         <div className='flex items-center space-x-3'>
-          <div className='flex items-center'>
+          <div className='md:flex hidden items-center'>
             <Badge
               variant={'outline'}
               className='text-green-500 border-green-500 rounded-full'
@@ -59,7 +59,9 @@ const Header = () => {
           </div>
           <SunDimIcon
             size={40}
-            className='hover:bg-[#121318] text-[#eaecef] rounded-full cursor-pointer hover:text-white p-2'
+            className={`hover:bg-[#121318] text-[#eaecef] rounded-full ${
+              user && 'md:block hidden'
+            } cursor-pointer hover:text-white p-2`}
           />
           {user ? (
             <>
@@ -76,6 +78,7 @@ const Header = () => {
               <Button
                 className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
                 variant={'secondary'}
+                size={'default'}
                 onClick={() => router.push('/auth/signin')}
               >
                 <FiLogIn /> Login
@@ -83,6 +86,7 @@ const Header = () => {
               <Button
                 className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
                 variant={'secondary'}
+                size={'default'}
                 onClick={() => router.push('/auth/signup')}
               >
                 <RiLoginBoxLine />

@@ -46,7 +46,7 @@ const AnnouncementCard = () => {
           <RiMegaphoneFill className='text-[#F0B90B]' size={14} />
         </span>
         <div className='px-3'>
-          <div className='flex items-center gap-x-4 h-5'>
+          <div className='flex items-center sm:gap-x-4 h-5'>
             <AnimatePresence>
               <motion.div
                 key={index}
@@ -56,7 +56,9 @@ const AnnouncementCard = () => {
                 className='absolute flex gap-x-2 items-center'
               >
                 {announcements[index].text}
-                {announcements[index].icon}
+                <span className='hidden sm:flex'>
+                  {announcements[index].icon}
+                </span>
               </motion.div>
             </AnimatePresence>
           </div>
