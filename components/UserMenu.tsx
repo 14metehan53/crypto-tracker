@@ -31,7 +31,7 @@ import maskEmail from '@/action/maskEmail';
 import { Badge } from '@/components/ui/badge';
 import { GoDotFill } from 'react-icons/go';
 import { SunDimIcon } from 'lucide-react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const UserMenu = ({
   image,
@@ -40,6 +40,7 @@ const UserMenu = ({
   emailVerified,
   role,
 }: ExtendedUser) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isVerified = !!emailVerified;
 
@@ -88,7 +89,7 @@ const UserMenu = ({
                   )}
                 </TooltipTrigger>
                 <TooltipContent>
-                  {role === UserRole.ADMIN && <p>Owner badge</p>}
+                  {role && role === UserRole.ADMIN && <p>Owner badge</p>}
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
@@ -129,12 +130,13 @@ const UserMenu = ({
             <DropdownMenuItem
               key={index}
               className='cursor-pointer lg:hidden block'
+              onClick={() => router.push(menu.href)}
             >
-              <Link href={menu.href} className='flex items-center gap-x-1'>
+              <span className='flex items-center gap-x-1'>
                 {menu.menuIcon && <menu.menuIcon className='text-white' />}
                 {menu.name}
                 {menu.icon && <menu.icon className='text-[#f6465d]' />}
-              </Link>
+              </span>
             </DropdownMenuItem>
           );
         })}
