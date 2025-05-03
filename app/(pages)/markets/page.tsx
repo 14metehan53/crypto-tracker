@@ -87,11 +87,13 @@ const coins = [
 const Markets = () => {
   return (
     <div className='container mx-auto mt-10 px-4 mb-10'>
-      <h1 className='text-2xl font-semibold text-white mb-6'>Markets</h1>
+      <h1 className='text-2xl font-semibold dark:text-white text-[#121318] mb-6'>
+        Markets
+      </h1>
       <div className='overflow-x-auto'>
-        <table className='min-w-full bg-[#111216] text-white rounded-xl overflow-hidden'>
+        <table className='min-w-full dark:bg-[#111216] bg-gray-400/10 dark:text-white text-[#121318] rounded-xl overflow-hidden'>
           <thead>
-            <tr className='text-left border-b border-gray-700 text-sm'>
+            <tr className='text-left border-b dark:border-gray-700 border-[#000]/10 text-sm'>
               <th className='p-4'>#</th>
               <th className='p-4'>Name</th>
               <th className='p-4'>Price</th>
@@ -104,7 +106,7 @@ const Markets = () => {
             {coins.map((coin, index) => (
               <tr
                 key={coin.symbol}
-                className='hover:bg-[#1a1c20] border-b border-gray-800 transition'
+                className='dark:hover:bg-[#1a1c20] hover:bg-gray-200 border-b dark:border-gray-800 border-[#000]/10 transition'
               >
                 <td className='p-4'>{index + 1}</td>
                 <td className='p-4 flex items-center gap-2'>

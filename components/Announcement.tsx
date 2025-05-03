@@ -39,11 +39,14 @@ const AnnouncementCard = () => {
   }, []);
 
   return (
-    <div className='bg-[#121318] p-3 relative overflow-hidden'>
+    <div className='dark:bg-[#121318] bg-[#ffc400] p-3 relative overflow-hidden'>
       <div className='w-full flex text-xs'>
         <span className='flex items-center gap-x-2'>
           Announcement
-          <RiMegaphoneFill className='text-[#F0B90B]' size={14} />
+          <RiMegaphoneFill
+            className='dark:text-[#F0B90B] text-[#121318]'
+            size={14}
+          />
         </span>
         <div className='px-3'>
           <div className='flex items-center sm:gap-x-4 h-5'>

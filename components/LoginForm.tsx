@@ -18,13 +18,13 @@ const LoginForm = () => {
           </Badge>
         </div>
 
-        <p className='text-gray-400 mb-6'>
+        <p className='text-gray-300 mb-6'>
           Sign in easily and securely with your Google account.
         </p>
         <Button
           onClick={login}
           variant='outline'
-          className='bg-white cursor-pointer text-black hover:bg-gray-100 flex items-center justify-center gap-2 w-full max-w-xs'
+          className='cursor-pointer text-white hover:bg-gray-100 flex items-center justify-center gap-2 w-full max-w-xs'
         >
           <CgGoogle size={20} />
           Sign in with Google

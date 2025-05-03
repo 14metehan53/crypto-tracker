@@ -115,8 +115,6 @@
 html,
 body {
   min-height: 100vh;
-  background-color: #181a20;
-  color: #eaecef;
 }
 
 @layer base {

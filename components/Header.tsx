@@ -5,12 +5,13 @@ import { Button } from '@/components/ui/button';
 import { GoDotFill } from 'react-icons/go';
 import { FiLogIn } from 'react-icons/fi';
 import { RiLoginBoxLine } from 'react-icons/ri';
-import { SunDimIcon } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { headerMenuLinks } from '@/constants/links';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/currentUser';
 import UserMenu from '@/components/UserMenu';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+import HomeMenu from '@/components/HomeMenu';
 
 const Header = () => {
   const user = useCurrentUser();
@@ -23,7 +24,7 @@ const Header = () => {
         {/* left */}
         <Link
           href={'/'}
-          className='text-base sm:text-2xl text-[#e69e00] hover:text-[#d0b90b] cursor-pointer font-semibold tracking-wide'
+          className='text-base sm:text-2xl text-[#ffc400] hover:text-[#ffc400d7] cursor-pointer font-semibold tracking-wide'
         >
           Crypto Tracker
         </Link>
@@ -57,12 +58,7 @@ const Header = () => {
               Delay 10 sec <GoDotFill />
             </Badge>
           </div>
-          <SunDimIcon
-            size={40}
-            className={`hover:bg-[#121318] text-[#eaecef] rounded-full ${
-              user && 'md:block hidden'
-            } cursor-pointer hover:text-white p-2`}
-          />
+          <ThemeSwitcher />
           {user ? (
             <>
               <UserMenu
@@ -76,7 +72,7 @@ const Header = () => {
           ) : (
             <>
               <Button
-                className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#0f0f14]'
+                className='cursor-pointer text-[#eaecef] bg-[#121318] hover:bg-[#121318ee] dark:hover:bg-[#0f0f14]'
                 variant={'secondary'}
                 size={'default'}
                 onClick={() => router.push('/auth/signin')}
@@ -84,7 +80,7 @@ const Header = () => {
                 <FiLogIn /> Login
               </Button>
               <Button
-                className='cursor-pointer font-bold bg-[#F0B90B] hover:bg-[#daaa0f]'
+                className='cursor-pointer dark:text-[#121318] font-bold bg-[#ffc400] hover:bg-[#ffc400de]'
                 variant={'secondary'}
                 size={'default'}
                 onClick={() => router.push('/auth/signup')}
@@ -92,11 +88,12 @@ const Header = () => {
                 <RiLoginBoxLine />
                 Register
               </Button>
+              <HomeMenu />
             </>
           )}
         </div>
       </div>
-      <div className='absolute bottom-0 left-0 w-full border-b border-white/10'></div>
+      <div className='absolute bottom-0 left-0 w-full border-b dark:border-white/10 border-[#000]/10'></div>
     </header>
   );
 };

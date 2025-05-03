@@ -30,8 +30,8 @@ import { ExtendedUser } from '@/types/session';
 import maskEmail from '@/action/maskEmail';
 import { Badge } from '@/components/ui/badge';
 import { GoDotFill } from 'react-icons/go';
-import { SunDimIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import ThemeMenuSwitcher from '@/components/ThemeMenuSwitcher';
 
 const UserMenu = ({
   image,
@@ -46,13 +46,15 @@ const UserMenu = ({
 
   return (
     <DropdownMenu onOpenChange={setIsOpen}>
-      <DropdownMenuTrigger className='outline-none cursor-pointer bg-[#121318] hover:bg-[#0e0f13] p-1 rounded-full'>
+      <DropdownMenuTrigger className='outline-none cursor-pointer bg-gray-100 dark:bg-[#121318] dark:hover:bg-[#0e0f13] hover:bg-[#ecececd5] p-1 rounded-full'>
         <div className='items-center justify-center flex gap-x-2'>
           <Avatar>
             <AvatarImage src={image} />
-            <AvatarFallback className='text-[#121318]'>CT</AvatarFallback>
+            <AvatarFallback className='text-[#121318] bg-white'>
+              CT
+            </AvatarFallback>
           </Avatar>
-          <div className='text-white text-sm'>
+          <div className='dark:text-white text-[#121318] text-sm'>
             <div className='flex items-center gap-x-1'>
               {name.length > 11 ? `${name.slice(0, 11)}...` : name}
               {role && role === UserRole.ADMIN && (
@@ -71,13 +73,13 @@ const UserMenu = ({
           </div>
           <MdOutlineArrowDropDownCircle
             size={25}
-            className={`transition-transform duration-300 text-white ${
+            className={`transition-transform duration-300 dark:text-white text-gray-300 ${
               isOpen ? 'rotate-180' : ''
             }`}
           />
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='bg-[#121318] text-white border-gray-400/10'>
+      <DropdownMenuContent className='dark:bg-[#121318] bg-gray-100 dark:text-white dark:border-gray-400/10 border-[#000]/10'>
         <DropdownMenuLabel className='grid grid-row-2'>
           <div className='flex items-center gap-x-1'>
             {name.length > 16 ? `${name.slice(0, 16)}...` : name}
@@ -116,14 +118,19 @@ const UserMenu = ({
             </TooltipProvider>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className='bg-gray-400/10' />
+        <DropdownMenuSeparator className='dark:bg-gray-400/10 bg-[#000]/10' />
         <DropdownMenuItem className='cursor-pointer'>
-          <CgProfile className='text-white' />
-          Profile
+          <span className='gap-x-1 flex items-center'>
+            <CgProfile className='dark:text-white text-[#121318]' />
+            Profile
+          </span>
         </DropdownMenuItem>
         <DropdownMenuItem className='cursor-pointer'>
-          <RiVipDiamondFill className='text-white' /> Subscription
-          <span className='text-xs bg-[#F0B90B] px-1 rounded-full'>soon</span>
+          <span className='gap-x-1 flex items-center'>
+            <RiVipDiamondFill className='dark:text-white text-[#121318]' />
+            Subscription
+            <span className='text-xs bg-[#F0B90B] px-1 rounded-full'>soon</span>
+          </span>
         </DropdownMenuItem>
         {headerMenuLinks?.map((menu, index) => {
           return (
@@ -133,7 +140,9 @@ const UserMenu = ({
               onClick={() => router.push(menu.href)}
             >
               <span className='flex items-center gap-x-1'>
-                {menu.menuIcon && <menu.menuIcon className='text-white' />}
+                {menu.menuIcon && (
+                  <menu.menuIcon className='dark:text-white text-[#121318]' />
+                )}
                 {menu.name}
                 {menu.icon && <menu.icon className='text-[#f6465d]' />}
               </span>
@@ -141,14 +150,21 @@ const UserMenu = ({
           );
         })}
         <DropdownMenuItem className='md:hidden flex items-center cursor-pointer'>
-          <SunDimIcon className='text-white md:hidden block' />
-          Light theme
+          <span className='w-full'>
+            <ThemeMenuSwitcher />
+          </span>
         </DropdownMenuItem>
         <DropdownMenuItem className='cursor-pointer'>
-          <RiSettings3Fill className='text-white' /> Settings
+          <span className='gap-x-1 flex items-center'>
+            <RiSettings3Fill className='dark:text-white text-[#121318]' />
+            Settings
+          </span>
         </DropdownMenuItem>
         <DropdownMenuItem className='cursor-pointer' onClick={logout}>
-          <RiLogoutBoxRFill className='text-white' /> Logout
+          <span className='gap-x-1 flex items-center'>
+            <RiLogoutBoxRFill className='dark:text-white text-[#121318]' />{' '}
+            Logout
+          </span>
         </DropdownMenuItem>
         <div className='md:hidden flex items-center justify-center mt-2 mb-2'>
           <Badge

@@ -47,19 +47,21 @@ const GainersAndLosers = () => {
   const { days, hours, minutes, seconds } = formatTime(remainingSeconds);
 
   const TimeCard = ({ value, label }: { value: number; label: string }) => (
-    <div className='bg-[#1c1d22] rounded-xl px-6 py-5 text-center shadow-lg border border-[#2e2f35]'>
+    <div className='dark:bg-[#1c1d22] bg-gray-100 rounded-xl px-6 py-5 text-center shadow-lg border dark:border-[#2e2f35] border-[#000]/10'>
       <div className='text-3xl font-bold'>{String(value).padStart(2, '0')}</div>
-      <div className='text-sm text-gray-400 mt-1'>{label}</div>
+      <div className='text-sm dark:text-gray-400 text-[#121318] mt-1'>
+        {label}
+      </div>
     </div>
   );
 
   return (
     <div className='container mx-auto min-h-[calc(100vh-72px)] flex items-center justify-center'>
       <div className='flex flex-col items-center gap-6'>
-        <h1 className='text-white text-xl flex items-center gap-x-2 font-semibold tracking-wide'>
+        <h1 className='dark:text-white text-[#121318] text-xl flex items-center gap-x-2 font-semibold tracking-wide'>
           <MdOutlineAccessTimeFilled size={22} /> Remaining time
         </h1>
-        <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 text-white'>
+        <div className='grid grid-cols-2 sm:grid-cols-4 gap-4 dark:text-white text-[#121318]'>
           <TimeCard value={days} label='Days' />
           <TimeCard value={hours} label='Hours' />
           <TimeCard value={minutes} label='Minutes' />

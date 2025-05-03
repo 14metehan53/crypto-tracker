@@ -25,7 +25,11 @@ export default async function RootLayout({
             content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
           />
         </head>
-        <body className={`${plexSans.className} antialiased`}>{children}</body>
+        <body
+          className={`${plexSans.className} antialiased text-[#121318] dark:text-[#eaecef] dark:bg-[#181a20]`}
+        >
+          {children}
+        </body>
       </html>
     </SessionProvider>
   );

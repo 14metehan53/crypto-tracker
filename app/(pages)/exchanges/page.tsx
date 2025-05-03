@@ -107,18 +107,18 @@ const exchanges = [
 const Exchanges = () => {
   return (
     <div className='container mx-auto py-10 px-4'>
-      <h1 className='text-3xl font-bold text-white mb-6'>
+      <h1 className='text-3xl font-bold dark:text-white text-[#121318] mb-6'>
         Crypto Exchange Statistics
       </h1>
-      <p className='text-gray-300 mb-8 max-w-3xl'>
+      <p className='dark:text-gray-300 text-[#121318]/80 mb-8 max-w-3xl'>
         This table shows real time statistics of major cryptocurrency exchanges
         including their 24 hour trading volume and proof of reserves. Data is
         sourced from CoinMarketCap and official exchange reports.
       </p>
 
       <div className='overflow-x-auto p-4'>
-        <table className='min-w-full text-sm text-left text-gray-700 border shadow-md rounded-md'>
-          <thead className='bg-gray-100 text-gray-900 font-semibold'>
+        <table className='min-w-full text-sm text-left dark:text-gray-700 text-[#121318] border shadow-md rounded-md'>
+          <thead className='bg-gray-100 dark:text-gray-900 text-[#121318] font-semibold'>
             <tr>
               <th className='px-4 py-3'>Exchange</th>
               <th className='px-4 py-3'>Trading volume(24h)</th>
@@ -134,7 +134,7 @@ const Exchanges = () => {
             {exchanges.map((exchange, index) => (
               <tr
                 key={index}
-                className='border-b hover:bg-slate-400/10 transition text-white'
+                className='border-b dark:hover:bg-slate-400/10 hover:bg-[#000]/10 transition dark:text-white text-[#121318]'
               >
                 <td className='px-4 py-3 font-medium'>{exchange.name}</td>
                 <td className='px-4 py-3'>{exchange.volume24h}</td>
