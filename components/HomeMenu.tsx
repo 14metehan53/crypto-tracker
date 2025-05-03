@@ -22,9 +22,9 @@ const HomeMenu = () => {
     <DropdownMenu onOpenChange={setIsClicked}>
       <DropdownMenuTrigger className='outline-none'>
         {isClicked ? (
-          <HiOutlineX className='cursor-pointer' size={30} />
+          <HiOutlineX className='cursor-pointer block lg:hidden' size={30} />
         ) : (
-          <FiMenu className='cursor-pointer' size={30} />
+          <FiMenu className='cursor-pointer block lg:hidden' size={30} />
         )}
         <DropdownMenuContent className='mt-2 dark:bg-[#121318] dark:text-white dark:border-gray-400/10 border-[#000]/10'>
           {headerMenuLinks?.map((menu, index) => {
