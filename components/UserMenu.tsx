@@ -31,7 +31,8 @@ import maskEmail from '@/action/maskEmail';
 import { Badge } from '@/components/ui/badge';
 import { GoDotFill } from 'react-icons/go';
 import { useRouter } from 'next/navigation';
-import ThemeMenuSwitcher from '@/components/ThemeMenuSwitcher';
+import { Moon, SunDim } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const UserMenu = ({
   image,
@@ -43,9 +44,10 @@ const UserMenu = ({
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const isVerified = !!emailVerified;
+  const { setTheme, theme } = useTheme();
 
   return (
-    <DropdownMenu onOpenChange={setIsOpen}>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger className='outline-none cursor-pointer bg-gray-100 dark:bg-[#121318] dark:hover:bg-[#0e0f13] hover:bg-[#ecececd5] p-1 rounded-full'>
         <div className='items-center justify-center flex gap-x-2'>
           <Avatar>
@@ -149,11 +151,27 @@ const UserMenu = ({
             </DropdownMenuItem>
           );
         })}
-        <DropdownMenuItem className='md:hidden flex items-center cursor-pointer'>
-          <span className='w-full'>
-            <ThemeMenuSwitcher />
-          </span>
-        </DropdownMenuItem>
+        {theme && theme === 'light' ? (
+          <>
+            <DropdownMenuItem
+              onClick={() => setTheme('dark')}
+              className='md:hidden flex items-center cursor-pointer gap-x-1'
+            >
+              <Moon className='h-[1.2rem] w-[1.2rem] transition-all' />
+              Dark theme
+            </DropdownMenuItem>
+          </>
+        ) : (
+          <>
+            <DropdownMenuItem
+              onClick={() => setTheme('light')}
+              className='md:hidden flex items-center cursor-pointer gap-x-1'
+            >
+              <SunDim className='h-[1.2rem] w-[1.2rem] transition-all' />
+              Light theme
+            </DropdownMenuItem>
+          </>
+        )}
         <DropdownMenuItem className='cursor-pointer'>
           <span className='gap-x-1 flex items-center'>
             <RiSettings3Fill className='dark:text-white text-[#121318]' />

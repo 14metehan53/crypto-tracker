@@ -8,18 +8,20 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { headerMenuLinks } from '@/constants/links';
 import { useRouter } from 'next/navigation';
-import ThemeMenuSwitcher from '@/components/ThemeMenuSwitcher';
 import { FiMenu } from 'react-icons/fi';
 import { HiOutlineX } from 'react-icons/hi';
 import { Badge } from '@/components/ui/badge';
 import { GoDotFill } from 'react-icons/go';
+import { Moon, SunDim } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 const HomeMenu = () => {
   const router = useRouter();
   const [isClicked, setIsClicked] = useState<boolean>(false);
+  const { setTheme, theme } = useTheme();
 
   return (
-    <DropdownMenu onOpenChange={setIsClicked}>
+    <DropdownMenu open={isClicked} onOpenChange={setIsClicked}>
       <DropdownMenuTrigger className='outline-none'>
         {isClicked ? (
           <HiOutlineX className='cursor-pointer block lg:hidden' size={30} />
@@ -44,11 +46,27 @@ const HomeMenu = () => {
               </DropdownMenuItem>
             );
           })}
-          <DropdownMenuItem className='md:hidden flex items-center cursor-pointer'>
-            <span className='w-full'>
-              <ThemeMenuSwitcher />
-            </span>
-          </DropdownMenuItem>
+          {theme && theme === 'light' ? (
+            <>
+              <DropdownMenuItem
+                onClick={() => setTheme('dark')}
+                className='md:hidden flex items-center cursor-pointer gap-x-1'
+              >
+                <Moon className='h-[1.2rem] w-[1.2rem] transition-all' />
+                Dark theme
+              </DropdownMenuItem>
+            </>
+          ) : (
+            <>
+              <DropdownMenuItem
+                onClick={() => setTheme('light')}
+                className='md:hidden flex items-center cursor-pointer gap-x-1'
+              >
+                <SunDim className='h-[1.2rem] w-[1.2rem] rotate-0 transition-all' />
+                Light theme
+              </DropdownMenuItem>
+            </>
+          )}
           <div className='md:hidden flex items-center justify-center mt-2 mb-2'>
             <Badge
               variant={'outline'}

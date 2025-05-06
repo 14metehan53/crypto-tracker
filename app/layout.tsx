@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/globals.css';
 import { plexSans } from '@/fonts/font';
+import { ThemeProvider } from '@/components/theme-provider';
 import { SessionProvider } from 'next-auth/react';
 import { auth } from '@/auth';
 
@@ -18,7 +19,7 @@ export default async function RootLayout({
 
   return (
     <SessionProvider session={session}>
-      <html lang='en'>
+      <html lang='en' suppressHydrationWarning>
         <head>
           <meta
             name='viewport'
@@ -28,7 +29,14 @@ export default async function RootLayout({
         <body
           className={`${plexSans.className} antialiased text-[#121318] dark:text-[#eaecef] dark:bg-[#181a20]`}
         >
-          {children}
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='light'
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </SessionProvider>

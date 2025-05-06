@@ -10,8 +10,8 @@ import { headerMenuLinks } from '@/constants/links';
 import { usePathname, useRouter } from 'next/navigation';
 import { useCurrentUser } from '@/hooks/currentUser';
 import UserMenu from '@/components/UserMenu';
-import ThemeSwitcher from '@/components/ThemeSwitcher';
 import HomeMenu from '@/components/HomeMenu';
+import { ModeToggle } from '@/components/ModeToggle';
 
 const Header = () => {
   const user = useCurrentUser();
@@ -58,7 +58,7 @@ const Header = () => {
               Delay 10 sec <GoDotFill />
             </Badge>
           </div>
-          <ThemeSwitcher />
+          <ModeToggle />
           {user ? (
             <>
               <UserMenu
