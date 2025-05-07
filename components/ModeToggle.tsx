@@ -1,15 +1,20 @@
 'use client';
 
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Moon, SunDim } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 export function ModeToggle() {
   const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <div className='flex items-center justify-center'>
-      {theme === 'light' ? (
+      {theme && theme === 'light' ? (
         <>
           <Moon
             size={40}

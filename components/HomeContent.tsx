@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { AiFillFire } from 'react-icons/ai';
 import { RiBarChartGroupedFill } from 'react-icons/ri';
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import AnnouncementCard from '@/components/Announcement';
+import PoweredBy from '@/components/PoweredBy';
 
 const HomeContent = () => {
   return (
@@ -87,24 +89,24 @@ const HomeContent = () => {
         {/* Sağdaki içerik */}
         <div className='lg:max-w-xl md:w-auto text-base mt-15 sm:mt-0 p-4 h-96 flex items-center justify-center text-center'>
           <div>
-            <div className='text-2xl mb-5 flex items-center justify-center gap-x-3'>
-              Coinmarketcap API
+            <div className='text-lg md:text-2xl mt-3 mb-5 flex items-center justify-center gap-x-3'>
+              Coingecko & Coinmarketcap API
               <CgTrending />
             </div>
             <div className='gap-y-6 grid'>
               <div>
                 This platform has been developed with the goal of making
                 cryptocurrency markets more transparent and accessible.
-                Integrated with the CoinMarketCap API, it delivers real-time
-                data on major cryptocurrencies such as Bitcoin, Doge, and BNB —
-                including their current prices, 24-hour trading volume, and
-                liquidity statistics.
+                Integrated with the Coingecko and Coinmarketcap API, it delivers
+                real time data on major cryptocurrencies such as Bitcoin, Doge,
+                and BNB — including their current prices, 24 hour trading
+                volume, and liquidity statistics.
               </div>
               <div>
                 It offers a clean yet powerful interface designed for users who
-                want to dive deeper into market analysis. Supported by
-                up-to-date data, the system helps investors make smarter
-                decisions and detect potential trends at an earlier stage.
+                want to dive deeper into market analysis. Supported by up to
+                date data, the system helps investors make smarter decisions and
+                detect potential trends at an earlier stage.
               </div>
             </div>
             <div className='flex justify-center'>
@@ -116,6 +118,15 @@ const HomeContent = () => {
               </Button>
             </div>
           </div>
+        </div>
+      </div>
+      {/* powered by */}
+      <div className='container mx-auto mt-15'>
+        <div className='text-center text-[#121318] dark:text-white'>
+          Powered by
+        </div>
+        <div className='py-4 items-center justify-self-center'>
+          <PoweredBy />
         </div>
       </div>
     </>

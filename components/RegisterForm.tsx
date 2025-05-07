@@ -23,7 +23,7 @@ const RegisterForm = () => {
         <Button
           onClick={register}
           variant='outline'
-          className='cursor-pointer text-white hover:bg-gray-100 flex items-center justify-center gap-2 w-full max-w-xs'
+          className='cursor-pointer text-[#121318] hover:bg-gray-100 flex items-center justify-center gap-2 w-full max-w-xs'
         >
           <CgGoogle size={20} />
           Sign up with Google
