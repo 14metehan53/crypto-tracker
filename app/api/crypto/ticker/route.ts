@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
+import { CryptoData } from '@/types/ticker';
 
-let cachedData: any = null;
+let cachedData: CryptoData | null = null;
 let lastFetched: number = 0;
 const BUFFER_TIME = 30 * 1000; // extra 30 sec
 
