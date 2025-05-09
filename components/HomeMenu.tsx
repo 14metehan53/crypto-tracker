@@ -72,7 +72,7 @@ const HomeMenu = () => {
               variant={'outline'}
               className='text-green-500 border-green-500 rounded-full'
             >
-              Delay 10 sec <GoDotFill className='text-green-500' />
+              Delay 5 min <GoDotFill className='text-green-500' />
             </Badge>
           </div>
         </DropdownMenuContent>

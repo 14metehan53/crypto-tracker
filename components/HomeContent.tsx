@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
 import { RiBarChartGroupedFill } from 'react-icons/ri';
 import { CgTrending } from 'react-icons/cg';
@@ -8,80 +8,101 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import AnnouncementCard from '@/components/Announcement';
 import PoweredBy from '@/components/PoweredBy';
+import axios from 'axios';
+import { formatVolume } from '@/action/formatVolume';
+import { formatPrice } from '@/action/formatPrice';
+import { CryptoData } from '@/types/ticker';
+import SkeletonCard from './Skeleton';
 
 const HomeContent = () => {
+  const [popularCoins, setPopularCoins] = useState<CryptoData[]>([]);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get<CryptoData[]>('/api/crypto/ticker');
+      setPopularCoins(response.data);
+      setLoading(false);
+
+      const now = new Date();
+      const formattedTime = now.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      });
+      setLastUpdated(formattedTime);
+    } catch (error) {
+      console.log('something went wrong!', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 30000); // 30 second
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <>
       <AnnouncementCard />
       <div className='container md:place-items-center grid lg:grid-cols-2 mt-15 sm:mt-20 sm:justify-center md:grid-cols-1 w-full mx-auto gap-x-10'>
         <div className='dark:bg-[#0d0e118c] bg-gray-400/10 p-4 h-90 sm:h-96 rounded-xl mx-auto lg:ml-10 w-full max-w-[500px] md:max-w-[600px]'>
           <div className='dark:bg-[#121318] bg-white dark:border-[#090909] border p-4 h-90 sm:h-96 rounded-xl -mt-8 w-full'>
-            <div className='flex items-center text-xl justify-center'>
-              <div className='dark:bg-[#0f1013] bg-gray-400/10 text-base sm:text-lg flex items-center gap-1 p-2 px-3 rounded-full'>
-                Popular Coins
-                <AiFillFire size={20} className='text-[#ffc400]' />
+            <div className='relative flex items-center justify-center'>
+              <div className='flex items-center text-xl justify-center'>
+                <div className='dark:bg-[#0f1013] bg-gray-400/10 text-base sm:text-lg flex items-center gap-1 p-2 px-3 rounded-full'>
+                  Popular Coins
+                  <AiFillFire size={20} className='text-[#ffc400]' />
+                </div>
+                <div className='absolute right-0 top-1/2 transform -translate-y-1/2 text-[10px] sm:text-xs border dark:bg-[#0f1013] bg-gray-400/10 p-1.5 rounded-full border-none'>
+                  <Link
+                    target='_blank'
+                    href={'https://alternative.me'}
+                    className='dark:text-white text-[#121318] cursor-pointer'
+                  >
+                    Alternative.me
+                  </Link>
+                </div>
               </div>
             </div>
             <div className='mt-5 w-full sm:max-w-[450px] md:max-w-[500px] mx-auto'>
-              <div className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'>
-                <div>BTC</div>
-                <div className='text-green-400'>132.592,18 $</div>
-                <div className='flex items-center gap-2 text-xs'>
-                  16.8B USDT
-                  <div className='hidden md:flex items-center gap-x-2 border dark:border-slate-400/10 p-1 px-2 rounded-full'>
-                    24h vol
-                    <RiBarChartGroupedFill />
-                  </div>
-                </div>
-                <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
-                  +2.88%
-                </Badge>
-              </div>
-              <div className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'>
-                <div>BNB</div>
-                <div className='text-red-500'>3.218,26 $</div>
-                <div className='flex items-center gap-2 text-xs'>
-                  4.22B USDT
-                  <div className='hidden md:flex items-center gap-x-2 border dark:border-slate-400/10 p-1 px-2 rounded-full'>
-                    24h vol
-                    <RiBarChartGroupedFill />
-                  </div>
-                </div>
-                <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
-                  +4.08%
-                </Badge>
-              </div>
-              <div className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'>
-                <div>DOGE</div>
-                <div className='text-red-500'>4.82,74 $</div>
-                <div className='flex items-center gap-2 text-xs'>
-                  1.79B USDT
-                  <div className='hidden md:flex items-center gap-x-2 border dark:border-slate-400/10 p-1 px-2 rounded-full'>
-                    24h vol
-                    <RiBarChartGroupedFill />
-                  </div>
-                </div>
-                <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
-                  +5.88%
-                </Badge>
-              </div>
-              <div className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'>
-                <div>SHIB</div>
-                <div className='text-green-500'>0.0001182 $</div>
-                <div className='flex items-center gap-2 text-xs'>
-                  1.22B USDT
-                  <div className='hidden md:flex items-center gap-x-2 border dark:border-slate-400/10 p-1 px-2 rounded-full'>
-                    24h vol
-                    <RiBarChartGroupedFill />
-                  </div>
-                </div>
-                <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
-                  +4.18%
-                </Badge>
-              </div>
-              <span className='text-xs dark:text-gray-400 text-[#121318] flex items-center h-10 justify-center'>
-                The data is updated at regular intervals.
-              </span>
+              {loading ? (
+                <SkeletonCard />
+              ) : (
+                <>
+                  {popularCoins?.map((coin) => (
+                    <div
+                      key={coin.id}
+                      className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'
+                    >
+                      <div>{coin.symbol}</div>
+                      <div className='text-green-400'>
+                        {formatPrice(coin.price_usd)} $
+                      </div>
+                      <div className='flex items-center gap-2 text-xs'>
+                        {formatVolume(Number(coin['24h_volume_usd']))} USD
+                        <div className='hidden md:flex items-center gap-x-2 border dark:border-slate-400/10 p-1.5 rounded-md'>
+                          24h vol
+                          <RiBarChartGroupedFill />
+                        </div>
+                      </div>
+                      {Number(coin.percent_change_24h) >= 0 ? (
+                        <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
+                          +{Number(coin.percent_change_24h).toFixed(2)}%
+                        </Badge>
+                      ) : (
+                        <Badge className='dark:text-red-500 text-[#912025] dark:bg-[#fb2c3669] bg-[#fb2c3669] p-1 rounded-md text-xs sm:text-base'>
+                          {Number(coin.percent_change_24h).toFixed(2)}%
+                        </Badge>
+                      )}
+                    </div>
+                  ))}
+                  <span className='text-xs dark:text-gray-400 text-[#121318] flex items-center h-9 justify-center'>
+                    The data is updated at{' '}
+                    {lastUpdated ? `${lastUpdated}` : 'regular intervals.'}.
+                  </span>
+                </>
+              )}
             </div>
           </div>
         </div>

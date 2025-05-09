@@ -55,7 +55,7 @@ const Header = () => {
               variant={'outline'}
               className='text-green-500 border-green-500 rounded-full'
             >
-              Delay 10 sec <GoDotFill />
+              Delay 5 min <GoDotFill />
             </Badge>
           </div>
           <ModeToggle />
