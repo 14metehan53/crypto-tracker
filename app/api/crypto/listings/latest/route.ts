@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
-import { CryptoData } from '@/types/ticker';
+import { ListingsLatestData } from '@/types/listings';
+import axios from 'axios';
 
-let cachedData: CryptoData[] | null = null;
+let cachedData: ListingsLatestData | null = null;
 const BUFFER_TIME: number = 30 * 1000; // extra 30 sec
 
 export async function GET() {
@@ -14,23 +15,35 @@ export async function GET() {
     ).getTime() + BUFFER_TIME;
 
   if (cachedData && now < nextUpdate) {
-    console.log('returned from cache.');
+    console.log('Returned from cache.');
     return NextResponse.json(cachedData);
   }
 
-  const apiUrl: string = process.env.NEXT_TICKER
-    ? `${process.env.NEXT_TICKER}?limit=4`
-    : 'https://api.alternative.me/v1/ticker/?limit=4';
+  const apiUrl =
+    'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest';
+  const apiKey = process.env.NEXT_COINMARKETCAP_API;
+
+  if (!apiUrl || !apiKey) {
+    console.error('API URL or API Key is missing');
+    return NextResponse.json(
+      { error: 'API URL or API Key is missing.' },
+      { status: 500 }
+    );
+  }
 
   try {
-    const response: Response = await fetch(apiUrl);
+    const response = await axios.get<ListingsLatestData>(apiUrl, {
+      headers: {
+        'X-CMC_PRO_API_KEY': apiKey,
+        Accept: 'application/json',
+      },
+    });
 
-    if (!response.ok) {
+    if (response.status !== 200) {
       throw new Error('API request failed.');
     }
 
-    const data: CryptoData[] = await response.json();
-
+    const data = response.data;
     cachedData = data;
     console.log('New data was pulled from the API.');
 

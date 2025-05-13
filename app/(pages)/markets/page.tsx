@@ -1,92 +1,35 @@
 'use client';
-import React from 'react';
-
-const coins = [
-  {
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    price: 65682.25,
-    volume: '32.5B',
-    marketCap: '1.27T',
-    change: 2.45,
-  },
-  {
-    name: 'Aptos',
-    symbol: 'APT',
-    price: 9.28,
-    volume: '2.18B',
-    marketCap: '412.6B',
-    change: 1.82,
-  },
-  {
-    name: 'BNB',
-    symbol: 'BNB',
-    price: 582.19,
-    volume: '2.7B',
-    marketCap: '89.3B',
-    change: -0.52,
-  },
-  {
-    name: 'Solana',
-    symbol: 'SOL',
-    price: 174.21,
-    volume: '3.2B',
-    marketCap: '78.5B',
-    change: 4.73,
-  },
-  {
-    name: 'Ripple',
-    symbol: 'XRP',
-    price: 0.647,
-    volume: '1.4B',
-    marketCap: '35.6B',
-    change: -1.28,
-  },
-  {
-    name: 'Cardano',
-    symbol: 'ADA',
-    price: 0.562,
-    volume: '912M',
-    marketCap: '19.8B',
-    change: 0.83,
-  },
-  {
-    name: 'Dogecoin',
-    symbol: 'DOGE',
-    price: 0.1825,
-    volume: '2.3B',
-    marketCap: '26.9B',
-    change: 6.12,
-  },
-  {
-    name: 'Shiba Inu',
-    symbol: 'SHIB',
-    price: 0.00002856,
-    volume: '1.1B',
-    marketCap: '16.2B',
-    change: -0.19,
-  },
-  {
-    name: 'Toncoin',
-    symbol: 'TON',
-    price: 5.76,
-    volume: '450M',
-    marketCap: '19.4B',
-    change: 1.94,
-  },
-  {
-    name: 'Avalanche',
-    symbol: 'AVAX',
-    price: 47.28,
-    volume: '820M',
-    marketCap: '17.3B',
-    change: 3.68,
-  },
-];
+import React, { useEffect, useState } from 'react';
+import { ListingsLatestData } from '@/types/listings';
+import { InfoBox } from '@/components/InfoBox';
+import axios from 'axios';
+import { formatVolume } from '@/action/formatVolume';
 
 const Markets = () => {
+  const [cryptoList, setCryptoList] = useState<ListingsLatestData[]>([]);
+
+  const fetchData = async (): Promise<void> => {
+    const response = await axios.get<{ data: ListingsLatestData[] }>(
+      '/api/crypto/listings/latest'
+    );
+    setCryptoList(response.data.data);
+  };
+
+  useEffect(() => {
+    fetchData();
+    const interval = setInterval(fetchData, 30000); // 30 second
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className='container mx-auto mt-10 px-4 mb-10'>
+      <div className='flex items-center justify-center mb-10'>
+        <InfoBox
+          message={
+            'To optimize the API, only 100 coins are currently listed, but all will be supported very soon.'
+          }
+        />
+      </div>
       <h1 className='text-2xl font-semibold dark:text-white text-[#121318] mb-6'>
         Markets
       </h1>
@@ -103,26 +46,34 @@ const Markets = () => {
             </tr>
           </thead>
           <tbody>
-            {coins.map((coin, index) => (
+            {cryptoList?.map((coin) => (
               <tr
                 key={coin.symbol}
                 className='dark:hover:bg-[#1a1c20] hover:bg-gray-200 border-b dark:border-gray-800 border-[#000]/10 transition'
               >
-                <td className='p-4'>{index + 1}</td>
+                <td className='p-4'>{coin.cmc_rank}</td>
                 <td className='p-4 flex items-center gap-2'>
                   <span className='font-medium'>{coin.name}</span>
                   <span className='text-gray-400 text-xs'>({coin.symbol})</span>
                 </td>
-                <td className='p-4'>${coin.price.toLocaleString()}</td>
-                <td className='p-4'>{coin.volume}</td>
-                <td className='p-4'>{coin.marketCap}</td>
+                <td className='p-4 text-sm md:text-base'>
+                  {coin.quote.USD.price < 0.001
+                    ? `$ ${String(coin.quote.USD.price.toFixed(8))}`
+                    : `$ ${coin.quote.USD.price.toLocaleString()}`}
+                </td>
+                <td className='p-4'>
+                  $ {formatVolume(coin.quote.USD.volume_24h)}
+                </td>
+                <td className='p-4'>{coin.quote.USD.market_cap}</td>
                 <td
                   className={`p-4 ${
-                    coin.change >= 0 ? 'text-green-400' : 'text-red-400'
+                    coin.quote.USD.percent_change_24h >= 0
+                      ? 'text-green-400'
+                      : 'text-red-400'
                   }`}
                 >
-                  {coin.change >= 0 ? '+' : ''}
-                  {coin.change}%
+                  {coin.quote.USD.percent_change_24h >= 0 ? '+' : ''}
+                  {coin.quote.USD.percent_change_24h.toFixed(2)}%
                 </td>
               </tr>
             ))}

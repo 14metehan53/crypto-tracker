@@ -1,7 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { AiFillFire } from 'react-icons/ai';
-import { RiBarChartGroupedFill } from 'react-icons/ri';
+import {
+  RiBarChartGroupedFill,
+  RiArrowDropUpFill,
+  RiArrowDropDownFill,
+} from 'react-icons/ri';
 import { CgTrending } from 'react-icons/cg';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
@@ -12,7 +16,9 @@ import axios from 'axios';
 import { formatVolume } from '@/action/formatVolume';
 import { formatPrice } from '@/action/formatPrice';
 import { CryptoData } from '@/types/ticker';
-import SkeletonCard from './Skeleton';
+import SkeletonCard from '@/components/Skeleton';
+import { percentChange } from '@/action/change';
+import { priceChange } from '@/action/priceChange';
 
 const HomeContent = () => {
   const [popularCoins, setPopularCoins] = useState<CryptoData[]>([]);
@@ -76,8 +82,17 @@ const HomeContent = () => {
                       className='dark:bg-[#0d0e11] bg-gray-400/10 text-xs md:text-lg p-3 rounded-lg mt-3 flex items-center justify-between'
                     >
                       <div>{coin.symbol}</div>
-                      <div className='text-green-400'>
-                        {formatPrice(coin.price_usd)} $
+                      <div
+                        className={`${priceChange(
+                          coin.percent_change_24h
+                        )} flex items-center`}
+                      >
+                        {Number(coin.percent_change_24h) >= 0.01 ? (
+                          <RiArrowDropUpFill size={20} />
+                        ) : (
+                          <RiArrowDropDownFill size={20} />
+                        )}
+                        <div>{formatPrice(coin.price_usd)} $</div>
                       </div>
                       <div className='flex items-center gap-2 text-xs'>
                         {formatVolume(Number(coin['24h_volume_usd']))} USD
@@ -87,11 +102,20 @@ const HomeContent = () => {
                         </div>
                       </div>
                       {Number(coin.percent_change_24h) >= 0 ? (
-                        <Badge className='dark:text-green-500 text-[#0c9945] dark:bg-[#00c95069] bg-[#00c950c5] p-1 rounded-md text-xs sm:text-base'>
-                          +{Number(coin.percent_change_24h).toFixed(2)}%
+                        <Badge
+                          className={`${percentChange(
+                            coin.percent_change_24h
+                          )} p-1 rounded-md text-xs sm:text-base`}
+                        >
+                          {Number(coin.percent_change_24h) >= 0.01 ? '+' : ''}
+                          {Number(coin.percent_change_24h).toFixed(2)}%
                         </Badge>
                       ) : (
-                        <Badge className='dark:text-red-500 text-[#912025] dark:bg-[#fb2c3669] bg-[#fb2c3669] p-1 rounded-md text-xs sm:text-base'>
+                        <Badge
+                          className={`${percentChange(
+                            coin.percent_change_24h
+                          )} p-1 rounded-md text-xs sm:text-base`}
+                        >
                           {Number(coin.percent_change_24h).toFixed(2)}%
                         </Badge>
                       )}
