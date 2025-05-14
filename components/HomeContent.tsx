@@ -87,7 +87,7 @@ const HomeContent = () => {
                           coin.percent_change_24h
                         )} flex items-center`}
                       >
-                        {Number(coin.percent_change_24h) >= 0.01 ? (
+                        {Number(coin.percent_change_24h) >= 0.005 ? (
                           <RiArrowDropUpFill size={20} />
                         ) : (
                           <RiArrowDropDownFill size={20} />
@@ -101,13 +101,13 @@ const HomeContent = () => {
                           <RiBarChartGroupedFill />
                         </div>
                       </div>
-                      {Number(coin.percent_change_24h) >= 0 ? (
+                      {Number(coin.percent_change_24h) >= 0.005 ? (
                         <Badge
                           className={`${percentChange(
                             coin.percent_change_24h
                           )} p-1 rounded-md text-xs sm:text-base`}
                         >
-                          {Number(coin.percent_change_24h) >= 0.01 ? '+' : ''}
+                          {Number(coin.percent_change_24h) >= 0.005 ? '+' : ''}
                           {Number(coin.percent_change_24h).toFixed(2)}%
                         </Badge>
                       ) : (
