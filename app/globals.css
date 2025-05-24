@@ -125,3 +125,32 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* antd table */
+th.ant-table-cell::before {
+  display: none !important;
+}
+
+.dark .ant-table {
+  background-color: #121318 !important;
+}
+
+.dark .ant-table-thead > tr > th {
+  background-color: #1e1f24 !important;
+  color: white !important;
+  border-color: #99a1af1a !important;
+}
+
+.dark .ant-table-tbody > tr > td {
+  background-color: #121318 !important;
+  color: white !important;
+  border-color: #99a1af1a !important;
+}
+
+.dark .ant-table-tbody > tr:hover > td {
+  background-color: #1e1f24 !important;
+}
+
+.dark .ant-table-sticky-holder {
+  background-color: #121318 !important;
+}
