@@ -1,25 +1,23 @@
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-dotenv.config();
 
 const uri = process.env.MONGODB_URI as string;
 
 if (!uri) {
-  throw new Error('MONGODB_URI environment değişkeni tanımlı değil!');
+  throw new Error('Please define the MONGODB_URI environment variable');
 }
 
 export async function mongoDB() {
   if (mongoose.connection.readyState >= 1) {
-    return; // zaten bağlıysa tekrar bağlanma
+    return;
   }
 
   try {
     await mongoose.connect(uri, {
-      dbName: 'CryptoTracker', // 👈 burayı kendi veritabanı adınla değiştir
+      dbName: `${process.env.NEXT_DB_NAME}`,
     });
-    console.log('✅ MongoDB bağlantısı başarılı!');
+    console.log('✅ MongoDB connected successfully!');
   } catch (err) {
-    console.error('❌ MongoDB bağlantı hatası:', err);
+    console.error('❌ MongoDB connection failed', err);
     throw err;
   }
 }
