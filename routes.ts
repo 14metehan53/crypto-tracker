@@ -2,6 +2,7 @@ export const publicRoutes: string[] = [
   '/',
   '/gainersandlosers',
   '/api/crypto/ticker',
+  '/api/crypto/ohlc',
 ];
 
 export const authRoutes: string[] = ['/auth/signup', '/auth/signin'];
